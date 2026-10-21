@@ -1,0 +1,39 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# --- Tests / outils ---
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# --- Jupyter / Colab ---
+.ipynb_checkpoints/
+
+# --- Données : jamais versionnées (licences, taille, reproductibilité) ---
+# Les données synthétiques sont régénérées par le notebook (graine fixe).
+data/raw/*
+data/processed/*
+data/synthetic/*
+!data/**/.gitkeep
+*.sqlite
+*.db
+
+# --- Secrets : ne jamais commiter de jeton ou de clé ---
+.env
+*.token
+secrets*
+
+# --- Systèmes ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

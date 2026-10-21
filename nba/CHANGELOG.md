@@ -1,0 +1,22 @@
+# Changelog
+
+## [0.2.0] – 2026-10-21
+### Ajouté
+- Source réelle FiveThirtyEight `nba-elo` (CC BY 4.0) : `src/nba_analytics/sources/fivethirtyeight.py`
+  (téléchargement, vérification SHA-256, une ligne par match, contrôle id/date).
+- `notebooks/02_donnees_reelles_fivethirtyeight.ipynb` : contrôles et statistiques sur 59 008 matchs.
+- 8 tests de l'adaptateur (24 au total).
+- Audit de licéité complet dans `docs/DATA_SOURCES.md` (droit européen des bases, bibliothèques, Colab).
+### Modifié
+- Notebooks : clonage du dépôt privé `JohnGAB7/Sport-Analytics` avec le secret Colab `GITHUB_TOKEN`.
+- `docs/LIMITATIONS.md` : alertes trouvées dans les données réelles et leur explication.
+
+## [0.1.0] – 2026-10-14
+### Ajouté
+- Structure du dépôt, README, `.gitignore`, `requirements.txt`, `pyproject.toml`.
+- `src/nba_analytics/schema.py` : schéma de la table des matchs.
+- `src/nba_analytics/synthetic.py` : générateur de matchs fictifs reproductible + injection de défauts.
+- `src/nba_analytics/quality.py` : contrôles (manquants, types, dates, doublons, cohérence) et statistiques descriptives.
+- `notebooks/01_chargement_controle_qualite.ipynb`.
+- 16 tests pytest.
+- `docs/DATA_SOURCES.md`, `docs/LIMITATIONS.md`, `docs/GUIDE_GITHUB_COLAB.md`.

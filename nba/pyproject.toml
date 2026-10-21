@@ -1,0 +1,10 @@
+[project]
+name = "nba-analytics"
+version = "0.2.0"
+description = "Analyse statistique et simulation de matchs NBA, sans mise d'argent réelle."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+# Permet à pytest de trouver le paquet dans src/ sans installation.
+pythonpath = ["src"]
+testpaths = ["tests"]
