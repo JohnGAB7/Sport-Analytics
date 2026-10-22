@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0] – 2026-10-22
+### Ajouté
+- `src/nba_analytics/models/` : référence (fréquence domicile), Elo, mesures (Brier, log-loss,
+  calibration, probabilités implicites, espérance), backtest chronologique et re-réglage saisonnier.
+- `notebooks/03_modele_elo.ipynb` : backtest 2000-2015.
+- `MODEL_CARD.md`.
+- 10 tests de modèles, dont des tests d'absence de fuite (34 au total).
+
 ## [0.2.0] – 2026-10-21
 ### Ajouté
 - Source réelle FiveThirtyEight `nba-elo` (CC BY 4.0) : `src/nba_analytics/sources/fivethirtyeight.py`

@@ -6,14 +6,14 @@ Aucune mise d'argent réelle, aucune commercialisation.
 > ⚠️ Rien dans ce dépôt n'est un conseil de pari. Une probabilité élevée ne garantit aucun
 > résultat, et un bon historique de prévisions ne garantit aucun gain futur.
 
-## État actuel (v0.2.0)
+## État actuel (v0.3.0)
 
 | Fait | Pas encore |
 |---|---|
 | Structure du dépôt, schéma de données | Données après juin 2015 |
-| Données réelles FiveThirtyEight (59 008 matchs NBA, 1946-2015, CC BY 4.0) | Modèle de prédiction |
-| Contrôles qualité : manquants, types, dates, doublons, cohérence | Comparaison aux cotes |
-| Données synthétiques, 2 notebooks Colab, 24 tests automatisés | Tableau de bord |
+| Données réelles FiveThirtyEight (59 008 matchs NBA, 1946-2015, CC BY 4.0) | Cotes et mesure de rentabilité |
+| Contrôles qualité : manquants, types, dates, doublons, cohérence | Prévision des matchs actuels |
+| Modèle Elo testé sur 2000-2015 (voir [MODEL_CARD.md](MODEL_CARD.md)), 3 notebooks, 34 tests | Tableau de bord |
 
 ## Structure
 
@@ -22,6 +22,7 @@ Sport-Analytics/nba/
 ├── README.md                 ← ce fichier
 ├── CHANGELOG.md              ← historique des versions
 ├── TODO.md                   ← prochaines tâches
+├── MODEL_CARD.md            ← fiche du modèle : données, résultats, limites
 ├── requirements.txt          ← dépendances Python
 ├── pyproject.toml            ← métadonnées + configuration pytest
 ├── .gitignore
@@ -34,12 +35,14 @@ Sport-Analytics/nba/
 │   └── GUIDE_GITHUB_COLAB.md ← mode d'emploi pas à pas
 ├── notebooks/
 │   ├── 01_chargement_controle_qualite.ipynb   ← contrôles testés sur données fictives
-│   └── 02_donnees_reelles_fivethirtyeight.ipynb ← mêmes contrôles sur données réelles
+│   ├── 02_donnees_reelles_fivethirtyeight.ipynb ← mêmes contrôles sur données réelles
+│   └── 03_modele_elo.ipynb   ← modèle de prédiction et backtest
 ├── src/nba_analytics/        ← code réutilisable (importé par les notebooks)
 │   ├── schema.py             ← colonnes et types attendus
 │   ├── synthetic.py          ← données fictives
 │   ├── quality.py            ← contrôles et statistiques descriptives
-│   └── sources/fivethirtyeight.py ← téléchargement, empreinte, conversion
+│   ├── sources/fivethirtyeight.py ← téléchargement, empreinte, conversion
+│   └── models/               ← référence, Elo, mesures, backtest
 └── tests/                    ← tests pytest
 ```
 

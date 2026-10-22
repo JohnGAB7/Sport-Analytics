@@ -103,6 +103,15 @@ def id_date_mismatches(games: pd.DataFrame) -> pd.DataFrame:
     return games[id_date.dt.strftime("%Y-%m-%d") != games["game_date"].astype(str).str[:10]]
 
 
+def forecasts(raw: pd.DataFrame) -> pd.DataFrame:
+    """Prévision publiée par FiveThirtyEight pour l'équipe à domicile, *avant* chaque match.
+
+    Sert uniquement de point de comparaison pour nos propres modèles, jamais d'entrée.
+    """
+    d = raw[raw["_iscopy"].astype(str) == "0"]
+    return pd.DataFrame({"game_id": d["game_id"], "p_538": pd.to_numeric(d["forecast"])})
+
+
 def load(path="data/raw/nbaallelo.csv", leagues: tuple[str, ...] = ("NBA",),
          verify: bool = True) -> pd.DataFrame:
     """Télécharge si besoin, vérifie, lit en texte brut et convertit au schéma commun."""
