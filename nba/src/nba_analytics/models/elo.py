@@ -51,6 +51,12 @@ def run_elo(games: pd.DataFrame, params: EloParams = EloParams(),
     `games` doit contenir : game_date, season, home_pts, away_pts, neutral_site et les colonnes
     d'équipe. Les franchises (et non les codes) sont utilisées pour suivre une équipe qui déménage.
     """
+    return elo_state(games, params, team_col_home, team_col_away)[0]
+
+
+def elo_state(games: pd.DataFrame, params: EloParams = EloParams(),
+              team_col_home: str = "home_franchise", team_col_away: str = "away_franchise"):
+    """Comme `run_elo`, mais renvoie aussi l'état final : (prévisions, notes, dernière saison jouée)."""
     g = games.sort_values(["game_date", "game_id"], kind="stable")
     ratings: dict[str, float] = {}
     last_season: dict[str, int] = {}
@@ -80,5 +86,20 @@ def run_elo(games: pd.DataFrame, params: EloParams = EloParams(),
         delta = params.k * mult * (result - p)
         ratings[home] += delta
         ratings[away] -= delta
-    return pd.DataFrame({"game_id": g["game_id"].to_numpy(), "p_elo": out_p,
-                         "elo_home_pre": out_h, "elo_away_pre": out_a}, index=g.index)
+    preds = pd.DataFrame({"game_id": g["game_id"].to_numpy(), "p_elo": out_p,
+                          "elo_home_pre": out_h, "elo_away_pre": out_a}, index=g.index)
+    return preds, ratings, last_season
+
+
+def predict(ratings: dict, last_season: dict, home: str, away: str, season: int,
+            params: EloParams = EloParams(), neutral: bool = False) -> float:
+    """Probabilité de victoire à domicile pour un match à venir, sans modifier l'état."""
+    def current(team):
+        if team not in ratings:
+            return INITIAL_RATING
+        r = ratings[team]
+        if last_season[team] != season:
+            r = params.carry_over * r + (1 - params.carry_over) * MEAN_RATING
+        return r
+    hca = 0.0 if neutral else params.home_advantage
+    return float(win_probability(current(home) + hca - current(away)))

@@ -64,6 +64,17 @@ synthétiques restent utilisées pour tester les contrôles (notebook 01).
 - Ce document n'est pas un avis juridique. Avant toute commercialisation, faites-le relire.
 - Les données s'arrêtent en juin 2015. Toute source plus récente demandera une nouvelle analyse.
 
+## Sources ajoutées le 22/10/2026 (test en direct)
+
+| Source | Usage dans le projet | Conditions vérifiées | Verdict |
+|---|---|---|---|
+| **BALLDONTLIE** (formule gratuite) | Résultats depuis 2015-16 | [Conditions](https://www.balldontlie.io/terms.html) (mises à jour le 20/10/2026) : « You may use Data you lawfully obtain for any lawful personal or commercial purpose » ; « Lawful gambling-industry uses are expressly permitted » ; stockage et archivage autorisés ; pas d'attribution exigée ; accès seulement par l'API officielle, sans contourner les limites (5 requêtes/minute en gratuit). | ✅ |
+| **The Odds API** (formule gratuite, 500 crédits/mois) | Cotes du jour, 1 crédit par jour | [Conditions](https://the-odds-api.com/terms-and-conditions.html) (31/08/2026) : usage dans des « analytical tools » encouragé ; stockage illimité autorisé ; « Using our data to train statistical and machine learning models » autorisé ; interdit de revendre les données brutes. Les cotes passées sont payantes et ne sont pas utilisées. | ✅ |
+
+Ces deux services prennent eux-mêmes la responsabilité de leurs données ; le projet passe par
+leurs API officielles avec une clé personnelle. Les clés sont des secrets GitHub, jamais écrites
+dans le dépôt.
+
 ## Autres éléments utilisés
 
 | Élément | Licence ou conditions | Verdict |
@@ -74,6 +85,8 @@ synthétiques restent utilisées pour tester les contrôles (notebook 01).
 | pytest | MIT | ✅ usage libre |
 | Google Colab (gratuit) | Activités interdites : hébergement de services, cryptominage, P2P, attaques, contournement de quotas… | ✅ l'analyse de données n'en fait pas partie |
 | GitHub (dépôt privé gratuit) | Conditions générales GitHub | ✅ usage personnel standard |
+| GitHub Actions | Exécution quotidienne (~2 min/jour) ; le plan gratuit inclut un quota mensuel de minutes pour les dépôts privés | ✅ |
+| requests | Apache-2.0 | ✅ usage libre |
 | Données synthétiques | Générées par le projet | ✅ aucun droit de tiers |
 
 ## Pages consultées

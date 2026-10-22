@@ -1,0 +1,43 @@
+# Registre quotidien de paris FICTIFS NBA (aucune mise réelle).
+# Clés à créer dans GitHub : Settings > Secrets and variables > Actions >
+#   BDL_API_KEY (BALLDONTLIE) et ODDS_API_KEY (The Odds API).
+name: NBA - paris fictifs quotidiens
+
+on:
+  schedule:
+    - cron: "0 16 * * *"   # 16:00 UTC, avant les matchs du soir aux États-Unis
+  workflow_dispatch:         # bouton « Run workflow » pour lancer à la main
+
+permissions:
+  contents: write            # pour enregistrer le registre dans le dépôt
+
+concurrency:
+  group: nba-daily
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120     # le premier passage télécharge ~10 saisons (environ 30 min)
+    defaults:
+      run:
+        working-directory: nba
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -m pytest -q
+      - name: Mettre à jour le registre
+        env:
+          BDL_API_KEY: ${{ secrets.BDL_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python scripts/daily_update.py
+      - name: Enregistrer le registre
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add registry
+          git diff --cached --quiet || git commit -m "Registre NBA du $(date -u +%Y-%m-%d)"
+          git push

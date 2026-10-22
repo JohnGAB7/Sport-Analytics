@@ -6,14 +6,14 @@ Aucune mise d'argent réelle, aucune commercialisation.
 > ⚠️ Rien dans ce dépôt n'est un conseil de pari. Une probabilité élevée ne garantit aucun
 > résultat, et un bon historique de prévisions ne garantit aucun gain futur.
 
-## État actuel (v0.3.0)
+## État actuel (v0.4.0)
 
 | Fait | Pas encore |
 |---|---|
 | Structure du dépôt, schéma de données | Données après juin 2015 |
-| Données réelles FiveThirtyEight (59 008 matchs NBA, 1946-2015, CC BY 4.0) | Cotes et mesure de rentabilité |
-| Contrôles qualité : manquants, types, dates, doublons, cohérence | Prévision des matchs actuels |
-| Modèle Elo testé sur 2000-2015 (voir [MODEL_CARD.md](MODEL_CARD.md)), 3 notebooks, 34 tests | Tableau de bord |
+| Données réelles FiveThirtyEight (59 008 matchs NBA, 1946-2015, CC BY 4.0) | Résultats des paris fictifs (il faut une saison) |
+| Contrôles qualité ; registre quotidien de paris **fictifs** (`registry/`) | Cotes historiques (payantes) |
+| Modèle Elo testé sur 2000-2015 (voir [MODEL_CARD.md](MODEL_CARD.md)), 3 notebooks, 44 tests | Tableau de bord |
 
 ## Structure
 
@@ -42,7 +42,12 @@ Sport-Analytics/nba/
 │   ├── synthetic.py          ← données fictives
 │   ├── quality.py            ← contrôles et statistiques descriptives
 │   ├── sources/fivethirtyeight.py ← téléchargement, empreinte, conversion
-│   └── models/               ← référence, Elo, mesures, backtest
+│   ├── sources/balldontlie.py, oddsapi.py ← résultats récents, cotes du jour
+│   ├── models/               ← référence, Elo, mesures, backtest
+│   ├── teams.py              ← correspondance des noms d'équipe
+│   └── paper_trading.py      ← registre des paris fictifs
+├── scripts/daily_update.py   ← mise à jour quotidienne (GitHub Actions)
+├── registry/                 ← registre des paris fictifs (versionné)
 └── tests/                    ← tests pytest
 ```
 

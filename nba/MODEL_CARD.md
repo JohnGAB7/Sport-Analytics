@@ -43,6 +43,10 @@ Exécuté le 22/10/2026 (pandas 3.0.5) ; tests `tests/test_models.py` verts sous
 - Les équipes arrivant d'autres ligues (1948-1951, ABA en 1977) démarrent à 1300.
 - Les matchs contestés sont comptés à la date de reprise.
 
+## Suivi en direct
+Depuis la v0.4.0, le modèle (K = 20, avantage 80) est suivi chaque jour contre les cotes réelles,
+en paris fictifs : `registry/report.json`. C'est la seule mesure valable de sa rentabilité.
+
 ## Usage à proscrire
 Miser de l'argent sur la seule base de ce modèle. Une probabilité de 70 % signifie que l'équipe
 perd environ 3 fois sur 10.

@@ -111,6 +111,31 @@ Règles de sécurité :
 
 ---
 
+## Partie 4 : lancer les paris fictifs automatiques (une seule fois)
+
+Chaque jour à 16 h UTC, GitHub note les cotes et les prévisions des matchs du soir, puis le
+résultat des matchs de la veille, dans `nba/registry/`. Il faut deux clés gratuites.
+
+### 4.1 Clé BALLDONTLIE
+1. Allez sur https://www.balldontlie.io et créez un compte gratuit.
+2. Dans votre tableau de bord, copiez votre **API key**.
+
+### 4.2 Clé The Odds API
+1. Allez sur https://the-odds-api.com, cliquez **Get API Key**, choisissez la formule **Starter (gratuite)**.
+2. La clé arrive par e-mail ; copiez-la.
+
+### 4.3 Ranger les clés dans GitHub (jamais dans la conversation)
+1. Ouvrez https://github.com/JohnGAB7/Sport-Analytics/settings/secrets/actions
+2. **New repository secret** : Name `BDL_API_KEY`, Secret = la clé BALLDONTLIE, **Add secret**.
+3. Recommencez avec Name `ODDS_API_KEY` et la clé The Odds API.
+
+### 4.4 Premier lancement
+1. Ouvrez l'onglet **Actions** du dépôt, choisissez **NBA - paris fictifs quotidiens**.
+2. Cliquez **Run workflow**, puis **Run workflow**.
+3. Le premier passage prend environ 30 minutes (il télécharge les résultats depuis 2015).
+   Une coche verte = réussi ; une croix rouge = ouvrez-la et copiez le message d'erreur.
+4. Ensuite, tout se fait seul. Le bilan est dans `nba/registry/report.json`.
+
 ## Bonnes habitudes
 - Un commit = une modification cohérente, avec un message qui dit **pourquoi**.
 - Lancez `!python -m pytest -q` avant chaque envoi.

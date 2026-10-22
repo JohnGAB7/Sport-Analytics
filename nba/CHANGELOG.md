@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0] – 2026-10-22
+### Ajouté
+- Test en direct sans argent : `paper_trading.py`, `scripts/daily_update.py`,
+  workflow GitHub Actions quotidien `.github/workflows/nba_daily.yml` (à la racine du dépôt).
+- Sources BALLDONTLIE (résultats) et The Odds API (cotes du jour), avec leurs conditions dans `docs/DATA_SOURCES.md`.
+- `teams.py`, `elo.predict` / `elo.elo_state`, 10 tests (44 au total), guide partie 4.
+
 ## [0.3.0] – 2026-10-22
 ### Ajouté
 - `src/nba_analytics/models/` : référence (fréquence domicile), Elo, mesures (Brier, log-loss,
