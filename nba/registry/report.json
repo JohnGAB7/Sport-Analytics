@@ -1,0 +1,13 @@
+{
+  "updated_at": "2026-10-31T14:52:48.690364+00:00",
+  "new_matches": 12,
+  "new_bets": 10,
+  "odds_api_quota": {
+    "x-requests-remaining": "499",
+    "x-requests-used": "1",
+    "x-requests-last": "1"
+  },
+  "matches_logged": 12,
+  "matches_settled": 0,
+  "bets_settled": 0
+}
