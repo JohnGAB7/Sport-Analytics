@@ -46,7 +46,15 @@ def update_games_cache(api_key: str, today: pd.Timestamp) -> pd.DataFrame:
     return cache
 
 
+def require_keys() -> None:
+    missing = [k for k in ("BDL_API_KEY", "ODDS_API_KEY") if not os.environ.get(k)]
+    if missing:
+        sys.exit("Clé(s) absente(s) : " + ", ".join(missing) + ". Créez-les dans GitHub : Settings > "
+                 "Secrets and variables > Actions > New repository secret (voir docs/GUIDE_GITHUB_COLAB.md, partie 4).")
+
+
 def main() -> None:
+    require_keys()
     now = pd.Timestamp.now(tz="UTC")
     REGISTRY_DIR.mkdir(exist_ok=True)
     bdl_games = update_games_cache(os.environ["BDL_API_KEY"], now.tz_localize(None).normalize())
