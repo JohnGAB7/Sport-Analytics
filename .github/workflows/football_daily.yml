@@ -1,0 +1,44 @@
+# Registre quotidien de paris FICTIFS football (aucune mise réelle).
+# Utilise le même secret que la NBA : ODDS_API_KEY (The Odds API).
+# Settings > Secrets and variables > Actions.
+name: Football - paris fictifs quotidiens
+
+on:
+  schedule:
+    - cron: "0 8 * * *"    # 08:00 UTC : avant les matchs européens de la journée
+  workflow_dispatch:         # bouton « Run workflow » pour lancer à la main
+
+permissions:
+  contents: write            # pour enregistrer le registre dans le dépôt
+
+concurrency:
+  group: football-daily
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: football
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -m pytest -q
+      - name: Mettre à jour le registre
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python scripts/daily_update.py
+      - name: Enregistrer le registre
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add registry
+          git diff --cached --quiet && exit 0
+          git commit -m "Registre football du $(date -u +%Y-%m-%d)"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push
