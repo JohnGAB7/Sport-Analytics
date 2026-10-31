@@ -1,7 +1,8 @@
 """Registre de paris FICTIFS, enregistrés avant les matchs, puis réglés après.
 
 Règles qui rendent le test honnête :
-1. Une prévision n'est enregistrée que si le match commence plus de 30 minutes plus tard.
+1. Une prévision n'est enregistrée que si le match commence entre 30 minutes et 36 heures
+   plus tard (les cotes publiées des semaines à l'avance ne reflètent pas encore les effectifs).
 2. Un match n'est enregistré qu'une fois (pas de choix a posteriori du « meilleur » moment).
 3. Les lignes déjà écrites ne sont jamais modifiées, sauf les colonnes de résultat.
    L'historique Git (date de chaque commit) prouve que la prévision précédait le match.
@@ -18,6 +19,7 @@ import pandas as pd
 from .models.evaluation import brier, expected_value, implied_probabilities
 
 MIN_LEAD = pd.Timedelta(minutes=30)
+MAX_LEAD = pd.Timedelta(hours=36)
 MIN_EDGE = 0.03  # espérance minimale (3 %) pour placer un pari fictif
 
 COLUMNS = ["event_id", "logged_at", "commence_time", "season", "home_team", "away_team",
@@ -39,7 +41,8 @@ def new_entries(odds: pd.DataFrame, registry: pd.DataFrame, predict_home, now: p
     if odds.empty:
         return empty_registry()
     odds = odds.assign(commence_time=pd.to_datetime(odds["commence_time"], utc=True))
-    odds = odds[(odds["commence_time"] - now > MIN_LEAD) & ~odds["event_id"].isin(registry["event_id"])]
+    lead = odds["commence_time"] - now
+    odds = odds[(lead > MIN_LEAD) & (lead <= MAX_LEAD) & ~odds["event_id"].isin(registry["event_id"])]
     rows = []
     for event_id, g in odds.groupby("event_id", sort=False):
         first = g.iloc[0]

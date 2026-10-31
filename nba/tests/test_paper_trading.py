@@ -167,3 +167,8 @@ def _read_csv_passthrough(real):
             return None  # remplacé par le faux to_games
         return real(path, *a, **k)
     return fake
+
+
+def test_match_trop_lointain_ignore():
+    far = make_odds(start=(NOW + pd.Timedelta(days=10)).isoformat())
+    assert pt.new_entries(far, pt.empty_registry(), lambda h, a, t: (0.6, 2027), NOW).empty
