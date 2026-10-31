@@ -31,14 +31,31 @@ Calibration Dixon-Coles (les 3 issues confondues) : écart entre probabilité an
 observée de 1,1 point au plus dans les tranches de 0 à 60 %, de 2,6 points au plus de 60 à 90 %.
 La tranche 90-100 % (21 cas) est trop petite pour conclure.
 
-Exécuté le 31/10/2026 (pandas 3.0.5, scipy 1.18.1) sur les résultats (sans les cotes) issus d'une
-copie publique des fichiers football-data.co.uk. **La comparaison aux cotes n'est pas dans ce tableau** :
-elle est produite par `scripts/backtest.py` (workflow « Football - tests et backtest »), voir le CHANGELOG.
+## Comparaison aux cotes (même période, 12 458 matchs ayant des cotes)
+Calculée par le workflow « Football - tests et backtest » sur GitHub le 31/10/2026 (pandas récent, Python 3.12).
 
-Lecture : Dixon-Coles n'apporte presque rien par rapport au Poisson simple sur ces données. Les deux
-battent nettement les fréquences, ce qui prouve qu'ils apprennent la force des équipes. Il est
-cependant attendu que le marché fasse mieux : les cotes intègrent blessures, compositions et
-informations que ce modèle ignore.
+| Prévision | RPS | Brier | Log-loss | Issue la plus probable correcte |
+|---|---|---|---|---|
+| Dixon-Coles | 0,2019 | 0,5905 | 0,9905 | 52,3 % |
+| Cotes moyennes avant-match (marge retirée) | 0,1963 | 0,5784 | 0,9729 | 53,6 % |
+| Cotes de clôture Pinnacle | **0,1956** | **0,5767** | **0,9703** | 53,9 % |
+
+**Le marché fait mieux que le modèle dans chacun des 5 championnats et chacune des 7 saisons.**
+
+Paris fictifs simulés avec la règle du registre (espérance annoncée ≥ 5 %, cote ≤ 5) :
+
+| Cotes utilisées | Paris | Gain (unités) | ROI | Erreur type |
+|---|---|---|---|---|
+| Moyennes avant-match | 6 147 | -767 | **-12,5 %** | 1,8 % |
+| Clôture Pinnacle | 7 372 | -521 | **-7,1 %** | 1,7 % |
+
+La perte dépasse la marge des bookmakers (environ 5 %) : quand le modèle croit voir une « valeur »,
+c'est le plus souvent lui qui se trompe (il ignore blessures, compositions, motivation). Résultat attendu
+pour un modèle qui n'utilise que les scores. Le registre en direct sert à mesurer cela honnêtement,
+pas à gagner de l'argent.
+
+Résultats sans les cotes exécutés aussi en local le 31/10/2026 (pandas 3.0.5, scipy 1.18.1), à partir
+d'une copie publique des résultats football-data.co.uk : mêmes chiffres.
 
 ## Hypothèses
 - La force d'une équipe se résume à une attaque et une défense, qui évoluent lentement.
