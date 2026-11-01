@@ -1,0 +1,34 @@
+# Tests + backtest football sur données réelles (football-data.co.uk), sans aucune clé.
+# Se lance à chaque pull request qui touche football/, ou à la main (« Run workflow »).
+# Le tableau des résultats s'affiche dans l'onglet « Summary » de l'exécution.
+name: Football - tests et backtest
+
+on:
+  pull_request:
+    paths:
+      - "football/**"
+      - ".github/workflows/football_*.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: football
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python -m pytest -q
+      - run: python scripts/backtest.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: backtest-football
+          path: football/reports/backtest.md
