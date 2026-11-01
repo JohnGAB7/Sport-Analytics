@@ -1,0 +1,44 @@
+{
+  "updated_at": "2026-11-01T08:03:42.360366+00:00",
+  "new_matches": 21,
+  "new_bets": 12,
+  "odds_api_quota": {
+    "x-requests-remaining": "494",
+    "x-requests-used": "6",
+    "x-requests-last": "1"
+  },
+  "unmatched_teams": [
+    "Deportivo La Coruña"
+  ],
+  "errors": {},
+  "matches_logged": 21,
+  "matches_settled": 0,
+  "bets_settled": 0,
+  "by_league": {
+    "BUNDES": {
+      "matches_logged": 2,
+      "matches_settled": 0,
+      "bets_settled": 0
+    },
+    "EPL": {
+      "matches_logged": 2,
+      "matches_settled": 0,
+      "bets_settled": 0
+    },
+    "LIGA": {
+      "matches_logged": 5,
+      "matches_settled": 0,
+      "bets_settled": 0
+    },
+    "LIGUE1": {
+      "matches_logged": 5,
+      "matches_settled": 0,
+      "bets_settled": 0
+    },
+    "SERIEA": {
+      "matches_logged": 7,
+      "matches_settled": 0,
+      "bets_settled": 0
+    }
+  }
+}
