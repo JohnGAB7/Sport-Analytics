@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-11-01T07:04:36.076045+00:00",
-  "new_matches": 4,
-  "new_bets": 3,
+  "updated_at": "2026-11-01T16:06:13.865059+00:00",
+  "new_matches": 0,
+  "new_bets": 0,
   "odds_api_quota": {
-    "x-requests-remaining": "499",
-    "x-requests-used": "1",
+    "x-requests-remaining": "493",
+    "x-requests-used": "7",
     "x-requests-last": "1"
   },
   "matches_logged": 11,
