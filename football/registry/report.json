@@ -1,15 +1,13 @@
 {
-  "updated_at": "2026-11-01T08:03:42.360366+00:00",
-  "new_matches": 21,
-  "new_bets": 12,
+  "updated_at": "2026-11-02T08:04:28.020779+00:00",
+  "new_matches": 0,
+  "new_bets": 0,
   "odds_api_quota": {
-    "x-requests-remaining": "494",
-    "x-requests-used": "6",
+    "x-requests-remaining": "488",
+    "x-requests-used": "12",
     "x-requests-last": "1"
   },
-  "unmatched_teams": [
-    "Deportivo La Coruña"
-  ],
+  "unmatched_teams": [],
   "errors": {},
   "matches_logged": 21,
   "matches_settled": 0,
