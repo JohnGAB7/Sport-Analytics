@@ -1,42 +1,102 @@
 {
-  "updated_at": "2026-11-02T08:04:28.020779+00:00",
+  "updated_at": "2026-11-03T08:03:56.215934+00:00",
   "new_matches": 0,
   "new_bets": 0,
   "odds_api_quota": {
-    "x-requests-remaining": "488",
-    "x-requests-used": "12",
+    "x-requests-remaining": "482",
+    "x-requests-used": "18",
     "x-requests-last": "1"
   },
   "unmatched_teams": [],
   "errors": {},
   "matches_logged": 21,
-  "matches_settled": 0,
-  "bets_settled": 0,
+  "matches_settled": 16,
+  "bets_settled": 9,
+  "rps_model": 0.1659,
+  "brier_model": 0.423,
+  "log_loss_model": 0.7578,
+  "rps_market": 0.168,
+  "brier_market": 0.4276,
+  "log_loss_market": 0.764,
+  "profit_units": 0.79,
+  "roi": 0.0883,
+  "roi_std_error": 0.4491,
+  "win_rate": 0.4444,
   "by_league": {
     "BUNDES": {
       "matches_logged": 2,
-      "matches_settled": 0,
-      "bets_settled": 0
+      "matches_settled": 2,
+      "bets_settled": 1,
+      "rps_model": 0.1251,
+      "brier_model": 0.5403,
+      "log_loss_model": 0.9335,
+      "rps_market": 0.1116,
+      "brier_market": 0.5123,
+      "log_loss_market": 0.9,
+      "profit_units": -1.0,
+      "roi": -1.0,
+      "roi_std_error": null,
+      "win_rate": 0.0
     },
     "EPL": {
       "matches_logged": 2,
-      "matches_settled": 0,
-      "bets_settled": 0
+      "matches_settled": 1,
+      "bets_settled": 1,
+      "rps_model": 0.1929,
+      "brier_model": 0.4682,
+      "log_loss_model": 0.8178,
+      "rps_market": 0.2477,
+      "brier_market": 0.5765,
+      "log_loss_market": 0.9657,
+      "profit_units": 1.5,
+      "roi": 1.505,
+      "roi_std_error": null,
+      "win_rate": 1.0
     },
     "LIGA": {
       "matches_logged": 5,
-      "matches_settled": 0,
-      "bets_settled": 0
+      "matches_settled": 4,
+      "bets_settled": 2,
+      "rps_model": 0.2133,
+      "brier_model": 0.4905,
+      "log_loss_model": 0.8498,
+      "rps_market": 0.2156,
+      "brier_market": 0.4975,
+      "log_loss_market": 0.858,
+      "profit_units": 1.32,
+      "roi": 0.66,
+      "roi_std_error": 1.66,
+      "win_rate": 0.5
     },
     "LIGUE1": {
       "matches_logged": 5,
-      "matches_settled": 0,
-      "bets_settled": 0
+      "matches_settled": 4,
+      "bets_settled": 2,
+      "rps_model": 0.1491,
+      "brier_model": 0.3539,
+      "log_loss_model": 0.6609,
+      "rps_market": 0.1527,
+      "brier_market": 0.3614,
+      "log_loss_market": 0.6716,
+      "profit_units": -0.07,
+      "roi": -0.035,
+      "roi_std_error": 0.965,
+      "win_rate": 0.5
     },
     "SERIEA": {
       "matches_logged": 7,
-      "matches_settled": 0,
-      "bets_settled": 0
+      "matches_settled": 5,
+      "bets_settled": 3,
+      "rps_model": 0.1523,
+      "brier_model": 0.3683,
+      "log_loss_model": 0.6794,
+      "rps_market": 0.1488,
+      "brier_market": 0.3608,
+      "log_loss_market": 0.668,
+      "profit_units": -0.96,
+      "roi": -0.32,
+      "roi_std_error": 0.68,
+      "win_rate": 0.3333
     }
   }
 }
