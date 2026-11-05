@@ -1,0 +1,21 @@
+# Mises à jour automatiques (gratuites) : actions GitHub épinglées et dépendances Python.
+# Dependabot ouvre une pull request par mise à jour ; rien n'est fusionné sans vous.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+  - package-ecosystem: pip
+    directory: /nba
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: pip
+    directory: /football
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3

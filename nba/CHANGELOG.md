@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1] – 2026-11-05
+### Sécurité
+- Dépôt rendu public : audit des fichiers et de tout l'historique, aucune clé trouvée.
+- `oddsapi.fetch_odds` ne laisse plus jamais la clé (présente dans l'URL) dans un message d'erreur ; 6 tests.
+- Notebooks : clonage sans jeton. Guide Colab : `git push` sans afficher le jeton en cas d'échec.
+- Voir `SECURITY.md` à la racine (workflows, Dependabot, `.gitignore`).
+
 ## [0.4.0] – 2026-10-22
 ### Ajouté
 - Test en direct sans argent : `paper_trading.py`, `scripts/daily_update.py`,
