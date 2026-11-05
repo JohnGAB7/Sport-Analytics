@@ -15,12 +15,28 @@ ODDS_COLUMNS = ["event_id", "commence_time", "home_name", "away_name", "bookmake
                 "odds_home", "odds_draw", "odds_away", "fetched_at"]
 
 
+def _get(session, url: str, params: dict):
+    """GET qui ne laisse jamais fuiter la clé.
+
+    The Odds API exige la clé dans l'URL (`apiKey=...`). Or les messages d'erreur de
+    `requests` recopient l'URL complète : ils finiraient dans les journaux publics
+    d'Actions ou dans `registry/report.json`, qui est versionné. On les remplace donc
+    par un message neutre (code HTTP ou type d'erreur), sans chaîner l'exception d'origine.
+    """
+    try:
+        r = session.get(url, params=params, timeout=30)
+    except requests.RequestException as e:
+        raise requests.RequestException(f"The Odds API : échec réseau ({type(e).__name__})") from None
+    if not r.ok:
+        raise requests.HTTPError(f"The Odds API : erreur HTTP {r.status_code}") from None
+    return r
+
+
 def fetch_odds(api_key: str, sport_key: str, regions: str = "eu", session=None) -> tuple[list[dict], dict]:
     """Cotes 1X2 (h2h, format décimal) d'un championnat. Renvoie (événements, crédits restants)."""
     session = session or requests.Session()
-    r = session.get(URL.format(sport=sport_key), params={"apiKey": api_key, "regions": regions,
-                                                         "markets": "h2h", "oddsFormat": "decimal"}, timeout=30)
-    r.raise_for_status()
+    r = _get(session, URL.format(sport=sport_key), {"apiKey": api_key, "regions": regions,
+                                                    "markets": "h2h", "oddsFormat": "decimal"})
     quota = {k: r.headers.get(k) for k in ("x-requests-remaining", "x-requests-used", "x-requests-last")}
     return r.json(), quota
 

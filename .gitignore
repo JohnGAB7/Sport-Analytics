@@ -1,0 +1,16 @@
+# Filet de sécurité commun à tout le dépôt (public) : aucun secret ne doit être commité.
+# Les clés API vivent uniquement dans Settings > Secrets and variables > Actions.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.token
+secrets*
+credentials*.json
+service-account*.json
+.netrc
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store

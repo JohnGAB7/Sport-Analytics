@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1] – 2026-11-05
+### Sécurité
+- `oddsapi.fetch_odds` ne laisse plus jamais la clé (présente dans l'URL) dans un message d'erreur,
+  donc ni dans `registry/report.json` (public) ni dans les journaux ; 6 tests.
+- `daily_update.py` intercepte aussi les erreurs réseau, championnat par championnat.
+- Voir `SECURITY.md` à la racine.
+
 ## [0.1.0] – 2026-10-31
 ### Ajouté
 - Dossier `football/`, sur le modèle de `nba/`.

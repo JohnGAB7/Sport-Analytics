@@ -79,8 +79,8 @@ def main() -> None:
             continue
         try:
             events, quota = oddsapi.fetch_odds(key, info["odds_key"])
-        except requests.HTTPError as e:
-            errors[lg] = f"The Odds API : {e}"
+        except requests.RequestException as e:  # message déjà nettoyé : jamais la clé
+            errors[lg] = str(e)
             continue
         odds = oddsapi.to_odds(events, now.isoformat())
         added = pt.new_entries(odds, registry, make_predictor(h, now, unmatched), now, lg)
