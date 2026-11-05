@@ -2,7 +2,7 @@
 # des versions récentes et des versions figées pourraient entrer en conflit.
 # Testé avec pandas 3.0.5 / numpy 2.5.3 / matplotlib 3.11.2 (Python 3.13).
 pandas>=2.0
-numpy>=1.24
+numpy>=2.2.6
 matplotlib>=3.7
 requests>=2.28
 pytest>=7.0
