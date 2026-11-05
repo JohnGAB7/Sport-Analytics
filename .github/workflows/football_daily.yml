@@ -8,8 +8,8 @@ on:
     - cron: "0 8 * * *"    # 08:00 UTC : avant les matchs européens de la journée
   workflow_dispatch:         # bouton « Run workflow » pour lancer à la main
 
-permissions:
-  contents: write            # pour enregistrer le registre dans le dépôt
+# Aucun droit par défaut ; le job ci-dessous ne reçoit que ce dont il a besoin.
+permissions: {}
 
 concurrency:
   group: football-daily
@@ -18,13 +18,17 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write        # uniquement pour enregistrer le registre dans le dépôt
     timeout-minutes: 30
     defaults:
       run:
         working-directory: football
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false   # le jeton n'est pas laissé dans .git pendant pip/pytest
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
@@ -34,7 +38,10 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python scripts/daily_update.py
       - name: Enregistrer le registre
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
           git add registry

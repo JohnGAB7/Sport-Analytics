@@ -34,8 +34,7 @@ Windows et macOS et ne partent pas lors du glisser-déposer.
 2. Dans la barre d'adresse, remplacez `https://github.com/` par
    `https://colab.research.google.com/github/` et validez.
    Exemple : `https://colab.research.google.com/github/JohnGAB7/Sport-Analytics/blob/main/nba/notebooks/02_donnees_reelles_fivethirtyeight.ipynb`
-   (dépôt privé : utilisez plutôt la méthode de la partie 3.4).
-3. Créez d'abord le secret `GITHUB_TOKEN` (partie 3.3, étapes a et b) : la première cellule s'en sert pour cloner le dépôt privé.
+3. Aucun secret n'est nécessaire pour lire : le dépôt est public et la première cellule le clone sans jeton.
 4. Menu **Exécution** → **Tout exécuter**. La première cellule clone le dépôt dans Colab et
    installe les dépendances.
 5. Pour lancer les tests, ajoutez une cellule et exécutez : `!python -m pytest -q`
@@ -96,18 +95,23 @@ token = userdata.get("GITHUB_TOKEN")
 !git status --short            # vérifiez la liste AVANT d'envoyer
 !git add -A
 !git commit -m "Décrivez ici ce qui a changé"
-subprocess.run(["git", "push", f"https://{USER}:{token}@github.com/{USER}/Sport-Analytics.git", "main"], check=True)
+# capture_output : en cas d'échec, la commande (qui contient le jeton) n'est jamais affichée.
+r = subprocess.run(["git", "push", f"https://{USER}:{token}@github.com/{USER}/Sport-Analytics.git", "main"],
+                   capture_output=True, text=True)
+print("Envoi réussi" if r.returncode == 0 else r.stderr.replace(token, "***"))
 ```
 Règles de sécurité :
 - ne jamais écrire le jeton en clair dans une cellule, ni l'afficher avec `print` ;
+- le dépôt est **public** : ne jamais sauvegarder sur GitHub un notebook dont les sorties
+  contiennent un jeton, une clé ou une URL `https://...:jeton@...` (Colab : **Modifier** →
+  **Effacer toutes les sorties** avant d'enregistrer) ;
 - relire `git status` : les dossiers `data/` sont exclus par `.gitignore`, mais vérifiez quand même ;
 - si le jeton fuit, supprimez-le immédiatement dans GitHub (même page qu'en a.).
 
-### 3.4 Dépôt privé
-- Ouvrir le notebook : dans Colab, **Fichier** → **Ouvrir un notebook** → onglet **GitHub**,
-  cochez **Inclure les dépôts privés** et autorisez l'accès.
-- La première cellule des notebooks lit déjà le secret `GITHUB_TOKEN` pour cloner : créez-le
-  avant (3.3 a et b).
+### 3.4 Dépôt public : ce qui change
+- Lire et cloner ne demandent plus de jeton. Le secret `GITHUB_TOKEN` de Colab ne sert qu'à **pousser** (3.3).
+- Les clés BALLDONTLIE et The Odds API restent uniquement dans
+  **Settings → Secrets and variables → Actions** ; jamais dans un fichier, un notebook ou un commit.
 
 ---
 
