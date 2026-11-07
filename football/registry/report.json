@@ -1,17 +1,15 @@
 {
-  "updated_at": "2026-11-06T08:04:10.325898+00:00",
-  "new_matches": 18,
-  "new_bets": 8,
+  "updated_at": "2026-11-07T08:03:35.591760+00:00",
+  "new_matches": 25,
+  "new_bets": 11,
   "odds_api_quota": {
-    "x-requests-remaining": "464",
-    "x-requests-used": "36",
+    "x-requests-remaining": "458",
+    "x-requests-used": "42",
     "x-requests-last": "1"
   },
-  "unmatched_teams": [
-    "Deportivo La Coruña"
-  ],
+  "unmatched_teams": [],
   "errors": {},
-  "matches_logged": 44,
+  "matches_logged": 69,
   "matches_settled": 20,
   "bets_settled": 12,
   "rps_model": 0.208,
@@ -26,7 +24,7 @@
   "win_rate": 0.3333,
   "by_league": {
     "BUNDES": {
-      "matches_logged": 8,
+      "matches_logged": 11,
       "matches_settled": 2,
       "bets_settled": 1,
       "rps_model": 0.1251,
@@ -41,7 +39,7 @@
       "win_rate": 0.0
     },
     "EPL": {
-      "matches_logged": 7,
+      "matches_logged": 12,
       "matches_settled": 2,
       "bets_settled": 2,
       "rps_model": 0.2837,
@@ -56,7 +54,7 @@
       "win_rate": 0.5
     },
     "LIGA": {
-      "matches_logged": 10,
+      "matches_logged": 15,
       "matches_settled": 4,
       "bets_settled": 2,
       "rps_model": 0.2133,
@@ -71,7 +69,7 @@
       "win_rate": 0.5
     },
     "LIGUE1": {
-      "matches_logged": 7,
+      "matches_logged": 14,
       "matches_settled": 5,
       "bets_settled": 3,
       "rps_model": 0.1862,
@@ -86,7 +84,7 @@
       "win_rate": 0.3333
     },
     "SERIEA": {
-      "matches_logged": 12,
+      "matches_logged": 17,
       "matches_settled": 7,
       "bets_settled": 4,
       "rps_model": 0.2225,
