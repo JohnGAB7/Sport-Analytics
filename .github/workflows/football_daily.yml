@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write        # uniquement pour enregistrer le registre dans le dépôt
+      issues: write          # pour publier le bilan du jour (GitHub l'envoie par e-mail)
     timeout-minutes: 30
     defaults:
       run:
@@ -49,3 +50,17 @@ jobs:
           git commit -m "Registre football du $(date -u +%Y-%m-%d)"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
+      - name: Publier le bilan du jour (e-mail via les notifications GitHub)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          [ -f reports/digest.md ] || { echo "Rien de nouveau : pas de bilan."; exit 0; }
+          gh label create bilan-quotidien --color 0E8A16 --description "Bilan quotidien des paris fictifs" --force
+          num=$(gh issue list --label bilan-quotidien --state open --json number --jq '.[0].number')
+          if [ -z "$num" ]; then
+            url=$(gh issue create --title "Bilan quotidien des paris fictifs" --label bilan-quotidien \
+              --assignee "$OWNER" --body "Chaque jour où il y a du nouveau, le bilan est publié ici en commentaire. La personne assignée le reçoit par e-mail (notifications GitHub).")
+            num=${url##*/}
+          fi
+          gh issue comment "$num" --body-file reports/digest.md

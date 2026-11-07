@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0] – 2026-11-07
+### Ajouté
+- Bilan quotidien lisible (`digest.py`) : nouveaux résultats, paris du jour, bilan cumulé foot et NBA,
+  avec la comparaison entre notre modèle et le marché. Le workflow le publie en commentaire de l'issue
+  « Bilan quotidien des paris fictifs ». GitHub l'envoie alors par e-mail à la personne assignée,
+  sans mot de passe ni adresse dans le code. Pas de bilan, donc pas d'e-mail, les jours sans nouveauté.
+- Alias Deportivo La Coruña et Racing Santander.
+
 ## [0.1.1] – 2026-11-05
 ### Sécurité
 - `oddsapi.fetch_odds` ne laisse plus jamais la clé (présente dans l'URL) dans un message d'erreur,

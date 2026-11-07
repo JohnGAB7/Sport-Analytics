@@ -21,7 +21,9 @@ ODDS_API_KEY=... python scripts/daily_update.py   # une mise à jour du registre
 ```
 Sur GitHub, deux workflows s'en chargent :
 - `Football - paris fictifs quotidiens` (`.github/workflows/football_daily.yml`) : chaque jour à 08:00 UTC,
-  avec le secret `ODDS_API_KEY` déjà créé pour la NBA ;
+  avec le secret `ODDS_API_KEY` déjà créé pour la NBA.
+  Les jours où il y a du nouveau, il publie le bilan en commentaire de l'issue « Bilan quotidien des
+  paris fictifs ». Vous le recevez par e-mail si vous êtes assigné à l'issue (notifications GitHub activées) ;
 - `Football - tests et backtest` (`.github/workflows/football_backtest.yml`) : à chaque pull request
   qui touche `football/`, ou à la main. Les résultats s'affichent dans l'onglet « Summary ».
 

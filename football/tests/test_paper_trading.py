@@ -105,6 +105,8 @@ def test_script_quotidien_de_bout_en_bout(tmp_path, monkeypatch):
     monkeypatch.setattr(daily, "REGISTRY_DIR", tmp_path)
     monkeypatch.setattr(daily, "REGISTRY", tmp_path / "paper_bets.csv")
     monkeypatch.setattr(daily, "REPORT", tmp_path / "report.json")
+    monkeypatch.setattr(daily, "DIGEST", tmp_path / "digest.md")
+    monkeypatch.setattr(daily, "NBA_REPORT", tmp_path / "absent.json")
     monkeypatch.setattr(daily.fd, "load_history", lambda *a, **k: hist)
     monkeypatch.setattr(daily.pd.Timestamp, "now", staticmethod(lambda tz=None: NOW))
     calls = []
@@ -125,5 +127,18 @@ def test_script_quotidien_de_bout_en_bout(tmp_path, monkeypatch):
     assert rep["unmatched_teams"] == ["Inconnu FC"]
     assert reg.loc[reg["event_id"] == "e2", "bet_side"].isna().all()
     assert reg.loc[0, "p_home"] > 0.5 and reg.loc[0, "home_team"] == "T11"
+    assert "Nouveaux matchs enregistrés : 2" in (tmp_path / "digest.md").read_text()
     daily.main()                                                    # deuxième passage : rien de nouveau
     assert len(pd.read_csv(tmp_path / "paper_bets.csv")) == 2
+    assert not (tmp_path / "digest.md").exists()                    # pas de bilan, donc pas d'e-mail
+
+
+def test_bilan_lisible():
+    from football_analytics import digest
+    reg = pt.new_entries(odds(), pt.empty_registry(), fixed([0.56, 0.24, 0.20]), NOW, "EPL")
+    after = pt.settle(reg, results(2, 1))
+    settled = digest.newly_settled(reg, after)
+    assert len(settled) == 1 and digest.newly_settled(after, after).empty
+    text = digest.build(settled, reg, pt.report(after), nba={"bets_settled": 3, "profit_units": -1.2, "roi": -0.4})
+    assert "Man United - Arsenal | 2-1 | victoire domicile à 2.00 | +1.00" in text
+    assert "Paris réglés : 1" in text and "NBA : 3 paris" in text
