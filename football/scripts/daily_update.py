@@ -18,6 +18,7 @@ import requests
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from football_analytics import digest  # noqa: E402
 from football_analytics import paper_trading as pt  # noqa: E402
 from football_analytics.leagues import LEAGUES, season_of  # noqa: E402
 from football_analytics.models.poisson import ModelParams, fit  # noqa: E402
@@ -28,6 +29,8 @@ from football_analytics.teams import match_team  # noqa: E402
 REGISTRY_DIR = ROOT / "registry"
 REGISTRY = REGISTRY_DIR / "paper_bets.csv"
 REPORT = REGISTRY_DIR / "report.json"
+DIGEST = ROOT / "reports/digest.md"          # non versionné : publié en commentaire d'issue
+NBA_REPORT = ROOT.parent / "nba/registry/report.json"
 CACHE = ROOT / "data/raw"
 TRAIN_SEASONS = 3                  # saisons complètes en plus de la saison en cours
 PARAMS = ModelParams()             # Dixon-Coles, xi = 0,0019, alpha = 3 (réglés sur 2016-2019)
@@ -87,8 +90,10 @@ def main() -> None:
         if len(added):
             added_all.append(added)
             registry = added if registry.empty else pd.concat([registry, added], ignore_index=True)
+    before = registry
     registry = pt.settle(registry, history)
     registry.to_csv(REGISTRY, index=False)
+    settled = digest.newly_settled(before, registry)
 
     added = pd.concat(added_all) if added_all else pt.empty_registry()
     summary = {"updated_at": now.isoformat(), "new_matches": len(added),
@@ -96,6 +101,13 @@ def main() -> None:
                "unmatched_teams": sorted(unmatched), "errors": errors, **pt.report(registry)}
     REPORT.write_text(json.dumps(summary, indent=2, ensure_ascii=False, default=str), encoding="utf-8")
     print(json.dumps(summary, indent=2, ensure_ascii=False, default=str))
+
+    # Bilan lisible, seulement s'il y a du nouveau (sinon pas d'e-mail inutile).
+    DIGEST.parent.mkdir(exist_ok=True)
+    DIGEST.unlink(missing_ok=True)
+    if len(added) or len(settled):
+        nba = json.loads(NBA_REPORT.read_text(encoding="utf-8")) if NBA_REPORT.exists() else None
+        DIGEST.write_text(digest.build(settled, added, summary, nba), encoding="utf-8")
 
 
 if __name__ == "__main__":

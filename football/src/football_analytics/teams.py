@@ -31,6 +31,7 @@ ALIASES = {
     "real betis": "Betis", "celta vigo": "Celta", "espanyol": "Espanol", "real sociedad": "Sociedad",
     "rayo vallecano": "Vallecano", "real oviedo": "Oviedo", "real valladolid": "Valladolid",
     "deportivo alaves": "Alaves", "real mallorca": "Mallorca", "osasuna": "Osasuna",
+    "deportivo la coruna": "La Coruna", "racing santander": "Santander",
     # Serie A
     "inter milan": "Inter", "internazionale": "Inter", "milan": "Milan", "roma": "Roma",
     "hellas verona": "Verona", "atalanta bc": "Atalanta",

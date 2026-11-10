@@ -1,6 +1,6 @@
 [project]
 name = "football-analytics"
-version = "0.1.0"
+version = "0.2.0"
 description = "Prévisions 1X2 de football et paris fictifs, sans mise d'argent réelle."
 requires-python = ">=3.10"
 

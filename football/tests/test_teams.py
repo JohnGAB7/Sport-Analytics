@@ -18,6 +18,7 @@ BUNDES = ["Dortmund", "M'gladbach", "FC Koln", "Ein Frankfurt", "Mainz", "St Pau
     ("Borussia Monchengladbach", BUNDES, "M'gladbach"), ("1. FC Köln", BUNDES, "FC Koln"),
     ("FSV Mainz 05", BUNDES, "Mainz"), ("FC St. Pauli", BUNDES, "St Pauli"),
     ("TSG 1899 Hoffenheim", BUNDES, "Hoffenheim"),
+    ("Deportivo La Coruña", ["La Coruna", "Santander", "Osasuna"], "La Coruna"),
 ])
 def test_noms_connus(name, cands, expected):
     assert match_team(name, cands) == expected
