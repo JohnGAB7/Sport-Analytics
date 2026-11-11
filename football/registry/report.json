@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-11-10T15:55:31.977228+00:00",
+  "updated_at": "2026-11-11T15:42:29.249519+00:00",
   "new_matches": 0,
   "new_bets": 0,
   "odds_api_quota": {
-    "x-requests-remaining": "441",
-    "x-requests-used": "59",
+    "x-requests-remaining": "435",
+    "x-requests-used": "65",
     "x-requests-last": "1"
   },
   "unmatched_teams": [],
