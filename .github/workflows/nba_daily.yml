@@ -4,8 +4,10 @@
 name: NBA - paris fictifs quotidiens
 
 on:
-  schedule:
-    - cron: "0 16 * * *"   # 16:00 UTC, avant les matchs du soir aux États-Unis
+  # EN PAUSE (12/11/2026) : lancement quotidien désactivé à la demande de JG.
+  # Pour reprendre, remettre les deux lignes suivantes :
+  # schedule:
+  #   - cron: "0 16 * * *"
   workflow_dispatch:         # bouton « Run workflow » pour lancer à la main
 
 # Aucun droit par défaut ; le job ci-dessous ne reçoit que ce dont il a besoin.
