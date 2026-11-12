@@ -1,19 +1,19 @@
 {
-  "updated_at": "2026-11-11T22:26:41.312404+00:00",
-  "new_matches": 10,
-  "new_bets": 8,
+  "updated_at": "2026-11-12T22:00:53.020466+00:00",
+  "new_matches": 4,
+  "new_bets": 3,
   "odds_api_quota": {
-    "x-requests-remaining": "434",
-    "x-requests-used": "66",
+    "x-requests-remaining": "428",
+    "x-requests-used": "72",
     "x-requests-last": "1"
   },
-  "matches_logged": 72,
-  "matches_settled": 62,
-  "bets_settled": 43,
-  "brier_model": 0.1839,
-  "brier_market": 0.1722,
-  "profit_units": -11.63,
-  "roi": -0.2705,
-  "roi_std_error": 0.1545,
-  "win_rate": 0.3953
+  "matches_logged": 76,
+  "matches_settled": 72,
+  "bets_settled": 51,
+  "brier_model": 0.1885,
+  "brier_market": 0.1716,
+  "profit_units": -16.41,
+  "roi": -0.3218,
+  "roi_std_error": 0.1368,
+  "win_rate": 0.3725
 }
